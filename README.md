@@ -1,2 +1,2 @@
 # Demeter-Recipes
-Food Recipes application, where we can browse recipes from various different kind of meal and diet types
+Food Recipes application, where we can browse recipes from various different kinds of meals and diet types
