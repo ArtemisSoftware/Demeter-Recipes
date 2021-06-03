@@ -1,4 +1,4 @@
-package com.artemissoftware.demeterrecipes
+package com.artemissoftware.data
 
 import com.artemissoftware.demeterrecipes.api.FoodRecipesApi
 import com.artemissoftware.demeterrecipes.api.models.FoodRecipe
