@@ -2,6 +2,7 @@ package com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.artemissoftware.demeterrecipes.api.models.FoodRecipe
 import com.artemissoftware.demeterrecipes.databinding.ItemRecipeBinding
@@ -27,10 +28,10 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.RecipeHolder>() {
     }
 
     fun setData(newData: FoodRecipe){
-//        val recipesDiffUtil = RecipesDiffUtil(recipes, newData.results)
-//        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
-//        recipes = newData.results
-//        diffUtilResult.dispatchUpdatesTo(this)
+        val recipesDiffUtil = RecipesDiffUtil(recipes, newData.results)
+        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
+        recipes = newData.results
+        diffUtilResult.dispatchUpdatesTo(this)
     }
 
 
