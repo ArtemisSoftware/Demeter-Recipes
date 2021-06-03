@@ -30,7 +30,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
 
         setupRecyclerView()
-
+        requestApiData()
     }
 
 
