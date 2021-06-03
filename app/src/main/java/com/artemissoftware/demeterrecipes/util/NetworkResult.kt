@@ -1,4 +1,4 @@
-package com.artemissoftware.util
+package com.artemissoftware.demeterrecipes.util
 
 sealed class NetworkResult<T>(
     val data: T? = null,

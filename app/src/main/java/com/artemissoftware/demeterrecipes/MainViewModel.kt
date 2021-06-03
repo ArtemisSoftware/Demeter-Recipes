@@ -1,4 +1,4 @@
-package com.artemissoftware
+package com.artemissoftware.demeterrecipes
 
 import android.app.Application
 import android.content.Context
@@ -8,9 +8,9 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.artemissoftware.data.Repository
+import com.artemissoftware.demeterrecipes.data.Repository
 import com.artemissoftware.demeterrecipes.api.models.FoodRecipe
-import com.artemissoftware.util.NetworkResult
+import com.artemissoftware.demeterrecipes.util.NetworkResult
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
