@@ -2,14 +2,12 @@ package com.artemissoftware.demeterrecipes.ui.fragments.recipes
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.artemissoftware.demeterrecipes.MainViewModel
+import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesAdapter
 import com.artemissoftware.demeterrecipes.util.NetworkResult
@@ -21,6 +19,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var recipesViewModel: RecipesViewModel
 
     private val recipesAdapter by lazy { RecipesAdapter() }
 
@@ -28,6 +27,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
         setupRecyclerView()
 
     }
@@ -35,7 +36,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private fun requestApiData() {
 
-        //--mainViewModel.getRecipes(recipesViewModel.applyQueries())
+        mainViewModel.getRecipes(recipesViewModel.applyQueries())
 
 
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->

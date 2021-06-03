@@ -1,4 +1,4 @@
-package com.artemissoftware.demeterrecipes
+package com.artemissoftware.demeterrecipes.ui
 
 import android.app.Application
 import android.content.Context

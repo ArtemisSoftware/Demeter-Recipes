@@ -1,6 +1,6 @@
 package com.artemissoftware.demeterrecipes.di
 
-import com.artemissoftware.demeterrecipes.Constants.Companion.BASE_URL
+import com.artemissoftware.demeterrecipes.util.Constants.Companion.BASE_URL
 import com.artemissoftware.demeterrecipes.api.FoodRecipesApi
 import dagger.Module
 import dagger.Provides
