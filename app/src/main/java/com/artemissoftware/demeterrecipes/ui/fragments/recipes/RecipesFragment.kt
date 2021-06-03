@@ -5,19 +5,74 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.artemissoftware.demeterrecipes.MainViewModel
 import com.artemissoftware.demeterrecipes.R
+import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesAdapter
+import com.artemissoftware.demeterrecipes.util.NetworkResult
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_recipes.*
+
+@AndroidEntryPoint
+class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
-class RecipesFragment : Fragment() {
+    private lateinit var mainViewModel: MainViewModel
+
+    private val recipesAdapter by lazy { RecipesAdapter() }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes, container, false)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        setupRecyclerView()
+
     }
 
+
+    private fun requestApiData() {
+
+        //--mainViewModel.getRecipes(recipesViewModel.applyQueries())
+
+
+        mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
+            when(response){
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    response.data?.let { recipesAdapter.setData(it) }
+                }
+
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+                is NetworkResult.Loading ->{
+                    showShimmerEffect()
+                }
+
+            }
+        }
+    }
+
+
+
+    private fun setupRecyclerView() = recyclerview.apply {
+        adapter = recipesAdapter
+        layoutManager = LinearLayoutManager(requireContext())
+    }
+
+
+
+    private fun showShimmerEffect() {
+        recyclerview.showShimmer()
+    }
+
+    private fun hideShimmerEffect() {
+        recyclerview.hideShimmer()
+    }
 
 }
