@@ -1,4 +1,4 @@
-package com.artemissoftware.demeterrecipes.database
+package com.artemissoftware.demeterrecipes.database.converters
 
 import androidx.room.TypeConverter
 import com.artemissoftware.demeterrecipes.api.models.FoodRecipe

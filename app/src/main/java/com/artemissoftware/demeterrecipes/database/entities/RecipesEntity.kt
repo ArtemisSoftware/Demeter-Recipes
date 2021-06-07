@@ -1,4 +1,4 @@
-package com.artemissoftware.demeterrecipes.database
+package com.artemissoftware.demeterrecipes.database.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
