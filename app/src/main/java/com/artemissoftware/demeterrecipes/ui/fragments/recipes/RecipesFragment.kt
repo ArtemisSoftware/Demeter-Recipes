@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -13,6 +14,7 @@ import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesAdapter
 import com.artemissoftware.demeterrecipes.util.NetworkResult
+import com.artemissoftware.demeterrecipes.util.extensions.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.*
 import kotlinx.coroutines.launch
@@ -38,18 +40,18 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private fun readDatabase() {
         lifecycleScope.launch {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
-
-                if (database.isNotEmpty()) {
-                    Log.d("RecipesFragment", "readDatabase called!")
+            mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer { database ->
+                if (database.isEmpty()) {
+                    Log.d("RecipesFragment", "Read Database called")
                     recipesAdapter.setData(database[0].foodRecipe)
                     hideShimmerEffect()
                 } else {
                     requestApiData()
                 }
-            }
+            })
         }
     }
+
 
 
     private fun requestApiData() {
