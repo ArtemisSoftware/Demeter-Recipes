@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import coil.load
 import com.artemissoftware.demeterrecipes.R
 
-class RecipeBinding {
+class RecipeItemBinding {
 
     companion object {
 

@@ -2,8 +2,10 @@ package com.artemissoftware.demeterrecipes.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
+import com.artemissoftware.demeterrecipes.databinding.FragmentRecipesBinding
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesAdapter
 import com.artemissoftware.demeterrecipes.util.NetworkResult
 import com.artemissoftware.demeterrecipes.util.extensions.observeOnce
@@ -23,16 +26,26 @@ import kotlinx.coroutines.launch
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
+    private var _binding: FragmentRecipesBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
 
     private val recipesAdapter by lazy { RecipesAdapter() }
 
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        _binding = FragmentRecipesBinding.bind(view)
 
         mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
 
         setupRecyclerView()
         readDatabase()
@@ -41,7 +54,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer { database ->
-                if (database.isEmpty()) {
+                if (database.isNotEmpty()) {
                     Log.d("RecipesFragment", "Read Database called")
                     recipesAdapter.setData(database[0].foodRecipe)
                     hideShimmerEffect()
@@ -104,6 +117,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private fun hideShimmerEffect() {
         recyclerview.hideShimmer()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
