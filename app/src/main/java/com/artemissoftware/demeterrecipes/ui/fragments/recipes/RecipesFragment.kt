@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
@@ -26,6 +27,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
+
+    private val args by navArgs<RecipesFragmentArgs>()
 
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +63,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer { database ->
-                if (database.isNotEmpty()) {
+                if (database.isNotEmpty() && !args.backFromBottomSheet) {
                     Log.d("RecipesFragment", "Read Database called")
                     recipesAdapter.setData(database[0].foodRecipe)
                     hideShimmerEffect()
