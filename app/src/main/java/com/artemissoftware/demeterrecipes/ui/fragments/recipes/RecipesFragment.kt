@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
@@ -46,6 +47,11 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
+
+        binding.fabRecipes.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+        }
+
 
         setupRecyclerView()
         readDatabase()
