@@ -10,6 +10,7 @@ App that searches recipes from the api spoonacular
     - MVVM
     - Local & Remote Data Sources
     - Retrofit
+    - ROOM Database
     - Dependency Injection - Dagger-Hilt
     - Kotlin Coroutines
     - Data Binding
@@ -18,7 +19,7 @@ App that searches recipes from the api spoonacular
     - Material Design
     - Shimmer Effect
 
-ROOM Database
+
 
 
 Offline Cache
