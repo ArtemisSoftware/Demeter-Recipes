@@ -1,6 +1,7 @@
 package com.artemissoftware.demeterrecipes.ui.fragments.recipes
 
 import android.app.Application
+import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,6 +24,9 @@ class RecipesViewModel @ViewModelInject constructor(application: Application, pr
 
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE
+
+    var networkStatus = false
+    var backOnline = false
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
 
@@ -52,4 +56,15 @@ class RecipesViewModel @ViewModelInject constructor(application: Application, pr
     }
 
 
+    fun showNetworkStatus() {
+        if (!networkStatus) {
+            Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
+            //saveBackOnline(true)
+        } else if (networkStatus) {
+            if (backOnline) {
+                Toast.makeText(getApplication(), "We're back online.", Toast.LENGTH_SHORT).show()
+                //saveBackOnline(false)
+            }
+        }
+    }
 }

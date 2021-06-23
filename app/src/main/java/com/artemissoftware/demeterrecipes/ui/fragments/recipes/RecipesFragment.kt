@@ -18,12 +18,16 @@ import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.databinding.FragmentRecipesBinding
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesAdapter
+import com.artemissoftware.demeterrecipes.util.NetworkListener
 import com.artemissoftware.demeterrecipes.util.NetworkResult
 import com.artemissoftware.demeterrecipes.util.extensions.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
@@ -38,7 +42,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     private val recipesAdapter by lazy { RecipesAdapter() }
 
-
+    private lateinit var networkListener: NetworkListener
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,12 +56,27 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         binding.mainViewModel = mainViewModel
 
         binding.fabRecipes.setOnClickListener {
-            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+            if (recipesViewModel.networkStatus) {
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheetFragment)
+            } else {
+                recipesViewModel.showNetworkStatus()
+            }
         }
 
 
         setupRecyclerView()
         readDatabase()
+
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                    .collect { status ->
+                        Log.d("NetworkListener", status.toString())
+                        recipesViewModel.networkStatus = status
+                        recipesViewModel.showNetworkStatus()
+                        readDatabase()
+                    }
+        }
     }
 
     private fun readDatabase() {
