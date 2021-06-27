@@ -65,7 +65,12 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
 
         setupRecyclerView()
-        readDatabase()
+
+
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner, {
+            recipesViewModel.backOnline = it
+        })
+
 
         lifecycleScope.launch {
             networkListener = NetworkListener()

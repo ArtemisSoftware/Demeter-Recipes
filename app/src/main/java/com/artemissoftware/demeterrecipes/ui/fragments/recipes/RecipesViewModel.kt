@@ -4,6 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.artemissoftware.demeterrecipes.data.DataStoreRepository
 import com.artemissoftware.demeterrecipes.util.Constants.Companion.API_KEY
@@ -29,6 +30,7 @@ class RecipesViewModel @ViewModelInject constructor(application: Application, pr
     var backOnline = false
 
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
     fun saveMealAndDietType(mealType: String, mealTypeId: Int, dietType: String, dietTypeId: Int) =
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,12 +61,18 @@ class RecipesViewModel @ViewModelInject constructor(application: Application, pr
     fun showNetworkStatus() {
         if (!networkStatus) {
             Toast.makeText(getApplication(), "No Internet Connection.", Toast.LENGTH_SHORT).show()
-            //saveBackOnline(true)
+            saveBackOnline(true)
         } else if (networkStatus) {
             if (backOnline) {
                 Toast.makeText(getApplication(), "We're back online.", Toast.LENGTH_SHORT).show()
-                //saveBackOnline(false)
+                saveBackOnline(false)
             }
         }
     }
+
+
+    private fun saveBackOnline(backOnline: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataStoreRepository.saveBackOnline(backOnline)
+        }
 }
