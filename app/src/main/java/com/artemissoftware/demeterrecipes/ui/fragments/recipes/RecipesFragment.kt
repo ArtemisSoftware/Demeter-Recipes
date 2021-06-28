@@ -2,10 +2,8 @@ package com.artemissoftware.demeterrecipes.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,9 +25,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+import androidx.appcompat.widget.SearchView
+
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class RecipesFragment : Fragment(R.layout.fragment_recipes) {
+class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryTextListener {
 
 
     private val args by navArgs<RecipesFragmentArgs>()
@@ -54,6 +54,8 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
+
+        setHasOptionsMenu(true)
 
         binding.fabRecipes.setOnClickListener {
             if (recipesViewModel.networkStatus) {
@@ -153,9 +155,30 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
     }
 
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.recipes_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
+    }
+
+
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 
 }
