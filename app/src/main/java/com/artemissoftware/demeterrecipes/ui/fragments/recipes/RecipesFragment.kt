@@ -128,6 +128,30 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
     }
 
 
+    private fun searchApiData(searchQuery: String) {
+        showShimmerEffect()
+        mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
+        mainViewModel.searchedRecipesResponse.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    hideShimmerEffect()
+                    val foodRecipe = response.data
+                    foodRecipe?.let { recipesAdapter.setData(it) }
+                }
+                is NetworkResult.Error -> {
+                    hideShimmerEffect()
+                    loadDataFromCache()
+                    Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResult.Loading -> {
+                    showShimmerEffect()
+                }
+            }
+        })
+    }
+
+
+
     private fun loadDataFromCache() {
         lifecycleScope.launch {
             mainViewModel.readRecipes.observe(viewLifecycleOwner) { database->
@@ -166,6 +190,9 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query != null) {
+            searchApiData(query)
+        }
         return true
     }
 
