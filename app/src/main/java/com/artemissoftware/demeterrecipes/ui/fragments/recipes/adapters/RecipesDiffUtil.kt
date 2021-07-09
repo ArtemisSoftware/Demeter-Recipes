@@ -3,7 +3,7 @@ package com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters
 import androidx.recyclerview.widget.DiffUtil
 import com.artemissoftware.demeterrecipes.api.models.Result
 
-class RecipesDiffUtil(private val oldList: List<Result>, private val newList: List<Result>): DiffUtil.Callback() {
+class RecipesDiffUtil<T>(private val oldList: List<T>, private val newList: List<T>): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldList.size
