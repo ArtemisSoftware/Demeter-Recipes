@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.artemissoftware.demeterrecipes.R
+import org.jsoup.Jsoup
 
 class RecipeItemBinding {
 
@@ -60,6 +61,18 @@ class RecipeItemBinding {
                 }
             }
         }
+
+
+        @BindingAdapter("parseHtml")
+        @JvmStatic
+        fun parseHtml(textView: TextView, description: String?){
+            if(description != null) {
+                val desc = Jsoup.parse(description).text()
+                textView.text = desc
+            }
+        }
+
+
 
     }
 
