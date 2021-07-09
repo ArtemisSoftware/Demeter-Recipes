@@ -37,6 +37,11 @@
     <string name="apply">Apply</string>
 
 
+    <string name="cheap">Cheap</string>
+    <string name="healthy">Healthy</string>
+    <string name="dairy_free">Dairy Free</string>
+
+
     <!--    lorem-->
     <string name="lorem_example">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
     <string name="lorem_example_2">Lorem Ipsum</string>
