@@ -8,6 +8,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.artemissoftware.demeterrecipes.data.Repository
 import com.artemissoftware.demeterrecipes.api.models.FoodRecipe
+import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
 import com.artemissoftware.demeterrecipes.database.entities.RecipesEntity
 import com.artemissoftware.demeterrecipes.util.NetworkResult
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,7 @@ class MainViewModel @ViewModelInject constructor(
     /*Local*/
 
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavoriteRecipes: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) =
             viewModelScope.launch(Dispatchers.IO) {
@@ -30,6 +32,20 @@ class MainViewModel @ViewModelInject constructor(
             }
 
 
+    private fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.insertFavoriteRecipes(favoritesEntity)
+        }
+
+    private fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteFavoriteRecipe(favoritesEntity)
+        }
+
+    private fun deleteAllFavoriteRecipes() =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.local.deleteAllFavoriteRecipes()
+        }
     /*Remote*/
 
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
