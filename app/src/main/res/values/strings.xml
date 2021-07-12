@@ -41,6 +41,7 @@
     <string name="healthy">Healthy</string>
     <string name="dairy_free">Dairy Free</string>
 
+    <string name="no_favorite_recipes">No Favorite Recipes.</string>
 
     <!--    lorem-->
     <string name="lorem_example">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
