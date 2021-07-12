@@ -9,6 +9,8 @@ class Constants {
         const val API_KEY = "80e5fa0a733c448a9414d49c093e787a"
 
 
+        const val RECIPE_RESULT_KEY = "recipeBundle"
+
         // API Query Keys
         const val QUERY_NUMBER = "number"
         const val QUERY_API_KEY = "apiKey"

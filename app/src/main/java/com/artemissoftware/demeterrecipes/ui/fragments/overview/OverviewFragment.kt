@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import coil.load
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.api.models.Result
+import com.artemissoftware.demeterrecipes.util.Constants.Companion.RECIPE_RESULT_KEY
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import org.jsoup.Jsoup
 
@@ -17,7 +18,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val args = arguments
-        val myBundle: Result? = args?.getParcelable("recipeBundle")
+        val myBundle: Result? = args?.getParcelable(RECIPE_RESULT_KEY)
 
 
         view.main_imageView.load(myBundle?.image)
