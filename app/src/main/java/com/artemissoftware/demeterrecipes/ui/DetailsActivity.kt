@@ -2,6 +2,7 @@ package com.artemissoftware.demeterrecipes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -45,10 +46,25 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.details_menu, menu)
+
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+
+
+
+
+
+
 }
