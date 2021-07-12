@@ -26,6 +26,9 @@ class DetailsActivity : AppCompatActivity() {
     private val args by navArgs<DetailsActivityArgs>()
     private val mainViewModel: MainViewModel by viewModels()
 
+    private var recipeSaved = false
+    private var savedRecipeId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
@@ -59,7 +62,9 @@ class DetailsActivity : AppCompatActivity() {
                 for (savedRecipe in favoritesEntity) {
                     if (savedRecipe.result.recipeId == args.result.recipeId) {
                         changeMenuItemColor(menuItem, R.color.yellow)
-
+                        savedRecipeId = savedRecipe.id
+                        recipeSaved = true
+                        break
                     } else {
                         changeMenuItemColor(menuItem, R.color.white)
                     }
@@ -76,9 +81,17 @@ class DetailsActivity : AppCompatActivity() {
         mainViewModel.insertFavoriteRecipe(favoritesEntity)
         changeMenuItemColor(item, R.color.yellow)
         showSnackBar(getString(R.string.recipe_saved))
-        //--recipeSaved = true
+        recipeSaved = true
     }
 
+
+    private fun removeFromFavorites(item: MenuItem) {
+        val favoritesEntity = FavoritesEntity(savedRecipeId, args.result)
+        mainViewModel.deleteFavoriteRecipe(favoritesEntity)
+        changeMenuItemColor(item, R.color.white)
+        showSnackBar(getString(R.string.removed_from_favourites))
+        recipeSaved = false
+    }
 
     private fun changeMenuItemColor(item: MenuItem, color: Int) {
         item.icon.setTint(ContextCompat.getColor(this, color))
@@ -100,10 +113,10 @@ class DetailsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             finish()
-        } else if (item.itemId == R.id.save_to_favorites_menu /*&& !recipeSaved*/) {
+        } else if (item.itemId == R.id.save_to_favorites_menu && !recipeSaved) {
             saveToFavorites(item)
-        } else if (item.itemId == R.id.save_to_favorites_menu /*&& recipeSaved*/) {
-            //--removeFromFavorites(item)
+        } else if (item.itemId == R.id.save_to_favorites_menu && recipeSaved) {
+            removeFromFavorites(item)
         }
         return super.onOptionsItemSelected(item)
     }
