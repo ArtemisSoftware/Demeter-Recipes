@@ -22,10 +22,10 @@
             app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
-        android:id="@+id/favouriteRecipesFragment"
-        android:name="com.artemissoftware.demeterrecipes.ui.fragments.favourites.FavouriteRecipesFragment"
-        android:label="Favourites"
-        tools:layout="@layout/fragment_favourite_recipes" />
+        android:id="@+id/favoriteRecipesFragment"
+        android:name="com.artemissoftware.demeterrecipes.ui.fragments.favourites.FavoriteRecipesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorite_recipes" />
     <fragment
         android:id="@+id/foodJokeFragment"
         android:name="com.artemissoftware.demeterrecipes.ui.fragments.foodjoke.FoodJokeFragment"
