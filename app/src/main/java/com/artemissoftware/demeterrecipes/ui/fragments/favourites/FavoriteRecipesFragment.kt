@@ -26,6 +26,10 @@ class FavoriteRecipesFragment : Fragment(R.layout.fragment_favorite_recipes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         _binding = FragmentFavoriteRecipesBinding.bind(view)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel
+        binding.favoriteRecipesAdapter = favoriteRecipesAdapter
+
         setupRecyclerView(binding.favoriteRecipesRecyclerView)
 
         mainViewModel.readFavoriteRecipes.observe(viewLifecycleOwner, {
@@ -37,5 +41,10 @@ class FavoriteRecipesFragment : Fragment(R.layout.fragment_favorite_recipes) {
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.adapter = favoriteRecipesAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

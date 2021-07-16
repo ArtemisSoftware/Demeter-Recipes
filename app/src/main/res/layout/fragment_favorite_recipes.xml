@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
+    <data>
 
-<!--        <variable-->
-<!--            name="mainViewModel"-->
-<!--            type="com.example.foody.viewmodels.MainViewModel" />-->
+        <variable
+            name="mainViewModel"
+            type="com.artemissoftware.demeterrecipes.ui.MainViewModel" />
 
-<!--        <variable-->
-<!--            name="mAdapter"-->
-<!--            type="com.example.foody.adapters.FavoriteRecipesAdapter" />-->
-<!--    </data>-->
+        <variable
+            name="favoriteRecipesAdapter"
+            type="com.artemissoftware.demeterrecipes.ui.fragments.favourites.FavoriteRecipesAdapter" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,6 +23,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteRecipesRecyclerView"
+            setData="@{favoriteRecipesAdapter}"
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             tools:listitem="@layout/item_favorite_recipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,6 +39,7 @@
         <ImageView
             android:id="@+id/no_data_imageView"
 
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:alpha="0.5"
@@ -52,6 +55,7 @@
         <TextView
             android:id="@+id/no_data_textView"
 
+            viewVisibility="@{mainViewModel.readFavoriteRecipes}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
