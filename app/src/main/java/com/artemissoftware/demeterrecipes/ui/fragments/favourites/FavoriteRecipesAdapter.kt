@@ -2,11 +2,13 @@ package com.artemissoftware.demeterrecipes.ui.fragments.favourites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
 import com.artemissoftware.demeterrecipes.databinding.ItemFavoriteRecipeBinding
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesDiffUtil
+import kotlinx.android.synthetic.main.item_favorite_recipe.view.*
 
 class FavoriteRecipesAdapter : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>() {
 
@@ -21,6 +23,20 @@ class FavoriteRecipesAdapter : RecyclerView.Adapter<FavoriteRecipesAdapter.Favor
     override fun onBindViewHolder(holder: FavoriteHolder, position: Int) {
         val selectedRecipe = favoriteRecipes[position]
         holder.bind(selectedRecipe)
+
+        /**
+         * Single Click Listener
+         * */
+        holder.itemView.favoriteRecipesRowLayout.setOnClickListener {
+//            if (multiSelection) {
+//                applySelection(holder, currentRecipe)
+//            } else {
+                val action = FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailsActivity(selectedRecipe.result)
+                holder.itemView.findNavController().navigate(action)
+//            }
+        }
+
+
     }
 
     override fun getItemCount(): Int {
