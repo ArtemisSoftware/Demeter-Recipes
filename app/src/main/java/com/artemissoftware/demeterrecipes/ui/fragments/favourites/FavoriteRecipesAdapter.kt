@@ -1,16 +1,17 @@
 package com.artemissoftware.demeterrecipes.ui.fragments.favourites
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
 import com.artemissoftware.demeterrecipes.databinding.ItemFavoriteRecipeBinding
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesDiffUtil
 import kotlinx.android.synthetic.main.item_favorite_recipe.view.*
 
-class FavoriteRecipesAdapter : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>() {
+class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>(), ActionMode.Callback {
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
@@ -37,6 +38,25 @@ class FavoriteRecipesAdapter : RecyclerView.Adapter<FavoriteRecipesAdapter.Favor
         }
 
 
+        /**
+         * Long Click Listener
+         * */
+        holder.itemView.favoriteRecipesRowLayout.setOnLongClickListener {
+
+            requireActivity.startActionMode(this)
+            true
+
+//            if (!multiSelection) {
+//                multiSelection = true
+//                requireActivity.startActionMode(this)
+//                applySelection(holder, currentRecipe)
+//                true
+//            } else {
+//                multiSelection = false
+//                false
+//            }
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -67,6 +87,40 @@ class FavoriteRecipesAdapter : RecyclerView.Adapter<FavoriteRecipesAdapter.Favor
             }
         }
 
+    }
+
+    override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
+//        mActionMode = actionMode!!
+//        applyStatusBarColor(R.color.contextualStatusBarColor)
+        return true
+    }
+
+    override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+        return true
+    }
+
+    override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
+//        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {
+//            selectedRecipes.forEach {
+//                mainViewModel.deleteFavoriteRecipe(it)
+//            }
+//            showSnackBar("${selectedRecipes.size} Recipe/s removed.")
+//
+//            multiSelection = false
+//            selectedRecipes.clear()
+//            actionMode?.finish()
+//        }
+        return true
+    }
+
+    override fun onDestroyActionMode(actionMode: ActionMode?) {
+//        myViewHolders.forEach { holder ->
+//            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+//        }
+//        multiSelection = false
+//        selectedRecipes.clear()
+//        applyStatusBarColor(R.color.statusBarColor)
     }
 
 }

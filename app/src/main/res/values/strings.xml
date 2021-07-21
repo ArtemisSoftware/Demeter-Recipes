@@ -42,6 +42,8 @@
     <string name="dairy_free">Dairy Free</string>
 
     <string name="no_favorite_recipes">No Favorite Recipes.</string>
+    <string name="delete_all">Delete All</string>
+    <string name="delete_favorite_menu">Delete Favorite Menu</string>
 
     <!--    lorem-->
     <string name="lorem_example">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
@@ -56,5 +58,7 @@
     <string name="save_to_favorites">Save to Favorites</string>
     <string name="recipe_saved">Recipe saved.</string>
     <string name="removed_from_favourites">Removed from Favorites.</string>
+
+
 
 </resources>
