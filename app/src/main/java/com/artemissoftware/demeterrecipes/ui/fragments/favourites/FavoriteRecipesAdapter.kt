@@ -1,6 +1,7 @@
 package com.artemissoftware.demeterrecipes.ui.fragments.favourites
 
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -71,6 +72,15 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
     }
 
 
+
+    private fun applyStatusBarColor(color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
+
+
+
+
+
     class FavoriteHolder(private val binding: ItemFavoriteRecipeBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
@@ -92,7 +102,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
 //        mActionMode = actionMode!!
-//        applyStatusBarColor(R.color.contextualStatusBarColor)
+        applyStatusBarColor(R.color.contextualStatusBarColor)
         return true
     }
 
@@ -120,7 +130,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
 //        }
 //        multiSelection = false
 //        selectedRecipes.clear()
-//        applyStatusBarColor(R.color.statusBarColor)
+        applyStatusBarColor(R.color.statusBarColor)
     }
 
 }
