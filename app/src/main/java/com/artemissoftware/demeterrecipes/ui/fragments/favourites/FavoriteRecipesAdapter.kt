@@ -16,6 +16,8 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
+    private lateinit var actionModeFavoriteRecipes: ActionMode
+
     private var multiSelection = false
     private var selectedRecipes = arrayListOf<FavoritesEntity>()
     private var favoriteHolder = arrayListOf<FavoriteHolder>()
@@ -26,7 +28,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
 
     override fun onBindViewHolder(holder: FavoriteHolder, position: Int) {
 
-        favoriteHolder
+        favoriteHolder.add(holder)
         val currentRecipe = favoriteRecipes[position]
         holder.bind(currentRecipe)
 
@@ -82,14 +84,28 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
         if (selectedRecipes.contains(currentRecipe)) {
             selectedRecipes.remove(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
-            //applyActionModeTitle()
+            applyActionModeTitle()
         } else {
             selectedRecipes.add(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
-            //applyActionModeTitle()
+            applyActionModeTitle()
         }
     }
 
+
+    private fun applyActionModeTitle() {
+        when (selectedRecipes.size) {
+            0 -> {
+                actionModeFavoriteRecipes.finish()
+            }
+            1 -> {
+                actionModeFavoriteRecipes.title = "${selectedRecipes.size} item selected"
+            }
+            else -> {
+                actionModeFavoriteRecipes.title = "${selectedRecipes.size} items selected"
+            }
+        }
+    }
 
     private fun changeRecipeStyle(holder: FavoriteHolder, backgroundColor: Int, strokeColor: Int) {
         holder.itemView.favoriteRecipesRowLayout.setBackgroundColor(ContextCompat.getColor(requireActivity, backgroundColor))
@@ -116,7 +132,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
-//        mActionMode = actionMode!!
+        actionModeFavoriteRecipes = actionMode!!
         applyStatusBarColor(R.color.contextualStatusBarColor)
         return true
     }
