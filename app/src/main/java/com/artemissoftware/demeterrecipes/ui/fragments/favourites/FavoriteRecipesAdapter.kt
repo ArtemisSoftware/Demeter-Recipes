@@ -117,8 +117,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
         holder.itemView.favorite_row_cardView.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
     }
 
-    class FavoriteHolder(private val binding: ItemFavoriteRecipeBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+    class FavoriteHolder(private val binding: ItemFavoriteRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favoritesEntity: FavoritesEntity) {
             binding.favoritesEntity = favoritesEntity
@@ -171,11 +170,14 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
 
 
     private fun showSnackBar(message: String) {
-        Snackbar.make(
-                rootView,
-                message,
-                Snackbar.LENGTH_SHORT
-        ).setAction("Okay") {}
+        Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT).setAction("Okay") {}
                 .show()
+    }
+
+
+    fun clearContextualActionMode() {
+        if (this::actionModeFavoriteRecipes.isInitialized) {
+            actionModeFavoriteRecipes.finish()
+        }
     }
 }
