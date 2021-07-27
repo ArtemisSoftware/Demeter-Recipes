@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
 import com.artemissoftware.demeterrecipes.databinding.ItemFavoriteRecipeBinding
+import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesDiffUtil
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_favorite_recipe.view.*
 
-class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>(), ActionMode.Callback {
+class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, private val mainViewModel: MainViewModel) : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>(), ActionMode.Callback {
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
     private lateinit var actionModeFavoriteRecipes: ActionMode
+    private lateinit var rootView: View
 
     private var multiSelection = false
     private var selectedRecipes = arrayListOf<FavoritesEntity>()
@@ -29,6 +32,8 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
     override fun onBindViewHolder(holder: FavoriteHolder, position: Int) {
 
         favoriteHolder.add(holder)
+        rootView = holder.itemView.rootView
+
         val currentRecipe = favoriteRecipes[position]
         holder.bind(currentRecipe)
 
@@ -142,16 +147,16 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
     }
 
     override fun onActionItemClicked(actionMode: ActionMode?, menu: MenuItem?): Boolean {
-//        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {
-//            selectedRecipes.forEach {
-//                mainViewModel.deleteFavoriteRecipe(it)
-//            }
-//            showSnackBar("${selectedRecipes.size} Recipe/s removed.")
-//
-//            multiSelection = false
-//            selectedRecipes.clear()
-//            actionMode?.finish()
-//        }
+        if (menu?.itemId == R.id.delete_favorite_recipe_menu) {
+            selectedRecipes.forEach {
+                mainViewModel.deleteFavoriteRecipe(it)
+            }
+            showSnackBar("${selectedRecipes.size} Recipe/s removed.")
+
+            multiSelection = false
+            selectedRecipes.clear()
+            actionMode?.finish()
+        }
         return true
     }
 
@@ -164,4 +169,13 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity) : Re
         applyStatusBarColor(R.color.statusBarColor)
     }
 
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+                rootView,
+                message,
+                Snackbar.LENGTH_SHORT
+        ).setAction("Okay") {}
+                .show()
+    }
 }
