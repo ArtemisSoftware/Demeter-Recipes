@@ -18,6 +18,8 @@ App that searches recipes from the api spoonacular
     - Material Components
     - Material Design
     - Shimmer Effect
+    - Contextual Action Mode
+    - Modal Bottom Sheet
 
 
 
@@ -41,9 +43,7 @@ Create
 
 ViewPager
 ViewPager2
-Create Contextual Action Mode
 Share Data with Other Apps
-Create Modal Bottom Sheet
     
 ## App preview:
 
