@@ -2,6 +2,7 @@ package com.artemissoftware.demeterrecipes.database.dao
 
 import androidx.room.*
 import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
+import com.artemissoftware.demeterrecipes.database.entities.FoodJokeEntity
 import com.artemissoftware.demeterrecipes.database.entities.RecipesEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -28,4 +29,12 @@ interface RecipesDao {
 
     @Query("DELETE FROM favorite_recipes_table")
     suspend fun deleteAllFavoriteRecipes()
+
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFoodJoke(foodJokeEntity: FoodJokeEntity)
+
+    @Query("SELECT * FROM food_joke_table ORDER BY id ASC")
+    fun readFoodJoke(): Flow<List<FoodJokeEntity>>
 }
