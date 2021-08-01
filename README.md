@@ -20,13 +20,12 @@ App that searches recipes from the api spoonacular
     - Shimmer Effect
     - Contextual Action Mode
     - Modal Bottom Sheet
+    - Offline Cache
+    - DataStore Preferences
 
 
 
 
-Offline Cache
-
-DataStore Preferences
 
 LiveData
 Flow
