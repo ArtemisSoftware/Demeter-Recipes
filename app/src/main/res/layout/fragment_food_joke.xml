@@ -80,7 +80,8 @@
             android:id="@+id/food_joke_error_imageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-
+            readApiResponse4="@{mainViewModel.foodJokeResponse}"
+            readDatabase4="@{mainViewModel.readFoodJoke}"
             android:alpha="0.5"
             android:src="@drawable/ic_sad"
             android:visibility="invisible"
@@ -91,14 +92,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.37" />
 
-<!--        readApiResponse4="@{mainViewModel.foodJokeResponse}"-->
-<!--        readDatabase4="@{mainViewModel.readFoodJoke}"-->
+<!--        -->
+<!--        -->
 
         <TextView
             android:id="@+id/food_joke_error_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            readApiResponse4="@{mainViewModel.foodJokeResponse}"
+            readDatabase4="@{mainViewModel.readFoodJoke}"
             android:layout_marginTop="8dp"
             android:alpha="0.5"
             android:text="Error"
@@ -109,8 +112,8 @@
             app:layout_constraintStart_toStartOf="@+id/food_joke_error_imageView"
             app:layout_constraintTop_toBottomOf="@+id/food_joke_error_imageView" />
 
-<!--        readApiResponse4="@{mainViewModel.foodJokeResponse}"-->
-<!--        readDatabase4="@{mainViewModel.readFoodJoke}"-->
+<!--        -->
+<!--        -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,6 +2,7 @@ package com.artemissoftware.demeterrecipes.bindingadapters
 
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.artemissoftware.demeterrecipes.api.models.FoodJoke
 import com.artemissoftware.demeterrecipes.database.entities.FoodJokeEntity
@@ -57,5 +58,31 @@ class FoodJokeBinding {
                 }
             }
         }
+
+
+
+        @BindingAdapter("readApiResponse4", "readDatabase4", requireAll = true)
+        @JvmStatic
+        fun setErrorViewsVisibility(
+                view: View,
+                apiResponse: NetworkResult<FoodJoke>?,
+                database: List<FoodJokeEntity>?
+        ){
+            if(database != null){
+                if(database.isEmpty()){
+                    view.visibility = View.VISIBLE
+                    if(view is TextView){
+                        if(apiResponse != null){
+                            view.text = apiResponse.message.toString()
+                        }
+                    }
+                }
+            }
+            if(apiResponse is NetworkResult.Success){
+                view.visibility = View.INVISIBLE
+            }
+        }
+
+
     }
 }
