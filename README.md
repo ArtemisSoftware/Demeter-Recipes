@@ -22,21 +22,9 @@ App that searches recipes from the api spoonacular
     - Modal Bottom Sheet
     - Offline Cache
     - DataStore Preferences
-
-
-
-
-
-LiveData
-Flow
-
-Search Recyclerview
-
-Send HTTP Request
-Parse HTTP Response
-Dark and Light Theme
-Night Mode
-Motion Layout
+    - Flow
+    - Night Mode
+    - Motion Layout
 
 Create 
 
