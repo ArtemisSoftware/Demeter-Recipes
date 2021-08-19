@@ -6,16 +6,22 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.api.models.Result
+import com.artemissoftware.demeterrecipes.databinding.FragmentIngredientsBinding
 import com.artemissoftware.demeterrecipes.ui.fragments.ingredients.adapters.IngredientsAdapter
 import com.artemissoftware.demeterrecipes.util.Constants.Companion.RECIPE_RESULT_KEY
-import kotlinx.android.synthetic.main.fragment_ingredients.*
 
 
 class IngredientsFragment : Fragment(R.layout.fragment_ingredients) {
 
     private val ingredientsAdapter: IngredientsAdapter by lazy { IngredientsAdapter() }
 
+    private var _binding: FragmentIngredientsBinding? = null
+    private val binding get() = _binding!!
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        _binding = FragmentIngredientsBinding.bind(view)
 
         val args = arguments
         val myBundle: Result? = args?.getParcelable(RECIPE_RESULT_KEY)
@@ -26,7 +32,13 @@ class IngredientsFragment : Fragment(R.layout.fragment_ingredients) {
 
 
     private fun setupRecyclerView() {
-        ingredients_recyclerview.adapter = ingredientsAdapter
-        ingredients_recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.ingredientsRecyclerview.adapter = ingredientsAdapter
+        binding.ingredientsRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

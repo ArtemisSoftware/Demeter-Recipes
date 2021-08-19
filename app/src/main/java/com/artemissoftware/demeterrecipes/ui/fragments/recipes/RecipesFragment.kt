@@ -20,7 +20,6 @@ import com.artemissoftware.demeterrecipes.util.NetworkListener
 import com.artemissoftware.demeterrecipes.util.NetworkResult
 import com.artemissoftware.demeterrecipes.util.extensions.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -163,7 +162,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
     }
 
 
-    private fun setupRecyclerView() = recyclerview.apply {
+    private fun setupRecyclerView() = binding.recyclerview.apply {
         adapter = recipesAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }
@@ -171,11 +170,11 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
 
 
     private fun showShimmerEffect() {
-        recyclerview.showShimmer()
+        binding.recyclerview.showShimmer()
     }
 
     private fun hideShimmerEffect() {
-        recyclerview.hideShimmer()
+        binding.recyclerview.hideShimmer()
     }
 
 
@@ -202,8 +201,9 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
 
 
 
-    override fun onDestroy() {
-        super.onDestroy()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

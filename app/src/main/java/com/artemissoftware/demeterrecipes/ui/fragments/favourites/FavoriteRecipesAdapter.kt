@@ -12,7 +12,6 @@ import com.artemissoftware.demeterrecipes.databinding.ItemFavoriteRecipeBinding
 import com.artemissoftware.demeterrecipes.ui.MainViewModel
 import com.artemissoftware.demeterrecipes.ui.fragments.recipes.adapters.RecipesDiffUtil
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.item_favorite_recipe.view.*
 
 class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, private val mainViewModel: MainViewModel) : RecyclerView.Adapter<FavoriteRecipesAdapter.FavoriteHolder>(), ActionMode.Callback {
 
@@ -40,7 +39,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
         /**
          * Single Click Listener
          * */
-        holder.itemView.favoriteRecipesRowLayout.setOnClickListener {
+        holder.binding.favoriteRecipesRowLayout.setOnClickListener {
             if (multiSelection) {
                 applySelection(holder, currentRecipe)
             } else {
@@ -53,7 +52,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
         /**
          * Long Click Listener
          * */
-        holder.itemView.favoriteRecipesRowLayout.setOnLongClickListener {
+        holder.binding.favoriteRecipesRowLayout.setOnLongClickListener {
 
             if (!multiSelection) {
                 multiSelection = true
@@ -113,11 +112,11 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
     }
 
     private fun changeRecipeStyle(holder: FavoriteHolder, backgroundColor: Int, strokeColor: Int) {
-        holder.itemView.favoriteRecipesRowLayout.setBackgroundColor(ContextCompat.getColor(requireActivity, backgroundColor))
-        holder.itemView.favorite_row_cardView.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
+        holder.binding.favoriteRecipesRowLayout.setBackgroundColor(ContextCompat.getColor(requireActivity, backgroundColor))
+        holder.binding.favoriteRowCardView.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
     }
 
-    class FavoriteHolder(private val binding: ItemFavoriteRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class FavoriteHolder(val binding: ItemFavoriteRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(favoritesEntity: FavoritesEntity) {
             binding.favoritesEntity = favoritesEntity

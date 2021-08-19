@@ -8,20 +8,32 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import com.artemissoftware.demeterrecipes.R
 import com.artemissoftware.demeterrecipes.api.models.Result
+import com.artemissoftware.demeterrecipes.databinding.FragmentInstructionsBinding
 import com.artemissoftware.demeterrecipes.util.Constants
-import kotlinx.android.synthetic.main.fragment_instructions.*
 
 
 class InstructionsFragment : Fragment(R.layout.fragment_instructions) {
 
+
+    private var _binding: FragmentInstructionsBinding? = null
+    private val binding get() = _binding!!
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        _binding = FragmentInstructionsBinding.bind(view)
 
         val args = arguments
         val myBundle: Result? = args?.getParcelable(Constants.RECIPE_RESULT_KEY)
 
-        instructions_webView.webViewClient = object : WebViewClient() {}
+        binding.instructionsWebView.webViewClient = object : WebViewClient() {}
         val websiteUrl: String = myBundle!!.sourceUrl
-        instructions_webView.loadUrl(websiteUrl)
+        binding.instructionsWebView.loadUrl(websiteUrl)
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
