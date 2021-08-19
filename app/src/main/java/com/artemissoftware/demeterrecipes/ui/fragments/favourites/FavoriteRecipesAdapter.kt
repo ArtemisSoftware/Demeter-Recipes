@@ -60,8 +60,8 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
                 applySelection(holder, currentRecipe)
                 true
             } else {
-                multiSelection = false
-                false
+                applySelection(holder, currentRecipe)
+                true
             }
 
         }
@@ -101,6 +101,7 @@ class FavoriteRecipesAdapter(private val requireActivity: FragmentActivity, priv
         when (selectedRecipes.size) {
             0 -> {
                 actionModeFavoriteRecipes.finish()
+                multiSelection = false
             }
             1 -> {
                 actionModeFavoriteRecipes.title = "${selectedRecipes.size} item selected"
