@@ -18,11 +18,14 @@ import com.artemissoftware.demeterrecipes.util.Constants.Companion.QUERY_FILL_IN
 import com.artemissoftware.demeterrecipes.util.Constants.Companion.QUERY_NUMBER
 import com.artemissoftware.demeterrecipes.util.Constants.Companion.QUERY_TYPE
 import com.artemissoftware.demeterrecipes.util.Constants.Companion.QUERY_SEARCH
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipesViewModel @ViewModelInject constructor(application: Application, private val dataStoreRepository: DataStoreRepository) : AndroidViewModel(application) {
+@HiltViewModel
+class RecipesViewModel @Inject constructor(application: Application, private val dataStoreRepository: DataStoreRepository) : AndroidViewModel(application) {
 
     private var mealType = DEFAULT_MEAL_TYPE
     private var dietType = DEFAULT_DIET_TYPE

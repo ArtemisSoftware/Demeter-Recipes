@@ -13,11 +13,14 @@ import com.artemissoftware.demeterrecipes.database.entities.FavoritesEntity
 import com.artemissoftware.demeterrecipes.database.entities.FoodJokeEntity
 import com.artemissoftware.demeterrecipes.database.entities.RecipesEntity
 import com.artemissoftware.demeterrecipes.util.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application) {
