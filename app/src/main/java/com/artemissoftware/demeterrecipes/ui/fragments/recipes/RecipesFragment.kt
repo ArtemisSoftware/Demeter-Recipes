@@ -136,6 +136,7 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes), SearchView.OnQueryT
                     hideShimmerEffect()
                     val foodRecipe = response.data
                     foodRecipe?.let { recipesAdapter.setData(it) }
+                    recipesViewModel.saveMealAndDietType()
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
