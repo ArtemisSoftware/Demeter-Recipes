@@ -25,18 +25,13 @@ App that searches recipes from the api spoonacular
     - Flow
     - Night Mode
     - Motion Layout
+    - ViewPager2
 
-Create 
-
-ViewPager
-ViewPager2
-Share Data with Other Apps
-    
 ## App preview:
 
 
 
 
-Image #1            |  Image #2           
-:-------------------------:|:----------------------------:
-<img src="images/Orpheus_Music_1.jpg">    |  <img src="images/Orpheus_Music_2.jpg"> 
+Image #1            |  Image #2             |  Image #3           
+:-------------------------:|:----------------------------:|:----------------------------:
+<img src="images/Demeter_Recipes_1.jpg">    |  <img src="images/Demeter_Recipes_2.jpg">     |  <img src="images/Demeter_Recipes_3.jpg"> 
